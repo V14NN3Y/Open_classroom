@@ -1,5 +1,99 @@
 {% extends 'listings/base.html' %}
+{% block title %}À propos - Merch Exchange{% endblock %}
 {% block content %}
-<h1>À propos</h1>
-<p>Nous adorons merch !</p>
+
+<div class="about-container">
+    <div class="hero-section">
+        <h1>🎵 À propos de Merch Exchange</h1>
+        <p class="hero-subtitle">Votre marketplace dédiée aux trésors musicaux</p>
+    </div>
+
+    <div class="about-content">
+        <div class="about-main-card">
+            <div class="about-icon">🎸</div>
+            <h2>Notre Passion</h2>
+            <p class="about-description">
+                Chez Merch Exchange, nous croyons que chaque article de musique raconte une histoire unique. 
+                Des vinyles rares aux t-shirts de concerts légendaires, en passant par les affiches vintage 
+                et les billets de spectacles inoubliables, nous connectons les passionnés de musique avec 
+                les trésors qu'ils recherchent.
+            </p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🎤</div>
+                <h3>Authenticité Garantie</h3>
+                <p>Tous nos articles sont vérifiés par des experts passionnés de musique</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🌟</div>
+                <h3>Collection Unique</h3>
+                <p>Des pièces rares et de collection introuvables ailleurs</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🤝</div>
+                <h3>Communauté</h3>
+                <p>Une plateforme créée par des fans, pour des fans de musique</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h3>Transactions Sécurisées</h3>
+                <p>Vos achats et ventes sont protégés par notre système sécurisé</p>
+            </div>
+        </div>
+
+        <div class="team-section">
+            <h2>🎯 Notre Mission</h2>
+            <div class="mission-card">
+                <p>
+                    Créer la plus grande communauté d'échange d'articles musicaux au monde, 
+                    où chaque collectionneur peut trouver la pièce manquante à sa collection 
+                    et où chaque article trouve son nouveau propriétaire passionné.
+                </p>
+            </div>
+        </div>
+
+        <div class="stats-section">
+            <h2>📊 Nos Chiffres</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">1,250+</div>
+                    <div class="stat-label">Articles référencés</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Groupes représentés</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Satisfaction client</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Support disponible</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <h2>🚀 Rejoignez l'aventure !</h2>
+            <p>Prêt à découvrir des trésors musicaux uniques ?</p>
+            <div class="cta-buttons">
+                <a href="{% url 'band-list' %}" class="btn-primary">
+                    🎵 Explorer les groupes
+                </a>
+                <a href="{% url 'lists' %}" class="btn-secondary">
+                    🛍️ Voir les annonces
+                </a>
+                <a href="{% url 'contact' %}" class="btn-accent">
+                    💌 Nous contacter
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

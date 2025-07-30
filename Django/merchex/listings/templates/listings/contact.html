@@ -1,10 +1,156 @@
 {% extends 'listings/base.html' %}
+{% block title %}Contact - Merch Exchange{% endblock %}
 {% block content %}
-<h1>Contactez nous !</h1>
-<p>Nous sommes là pour vous aider.</p>
-<form action="" method="post" novalidate>
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Envoyer">
-</form>
+
+<div class="contact-container">
+    <div class="hero-section">
+        <h1>💌 Contactez-nous</h1>
+        <h5 class="hero-subtitle">Notre équipe est là pour vous accompagner dans votre passion musicale</h5>
+    </div>
+    <div class="contact-content">
+        <div class="contact-info-section">
+            <div class="contact-methods">
+                <div class="contact-method">
+                    <h3>📧 Email</h3>
+                    <p>bill.adjagboni@epitech.eu</p>
+                    <span class="response-time">Réponse sous 24h</span>
+                </div>
+                <div class="contact-method">
+                    <h3>⏰ Horaires</h3>
+                    <p>Lun - Ven: 9h - 18h</p>
+                    <span class="response-time">Support en direct</span>
+                </div>
+                
+                <div class="contact-method">
+                    <h3>🌍 Communauté</h3>
+                    <p>Des passionnés comme vous</p>
+                    <span class="response-time">Échanges 24/7</span>
+                </div>
+            </div>
+            <div class="contact-reasons">
+                <h3>🤔 Pourquoi nous contacter ?</h3>
+                <ul class="reasons-list">
+                    <li>
+                        <span class="reason-icon">❓ <strong>Questions générales</strong></span>
+                        <div>
+                            
+                            <p>Sur le fonctionnement de la plateforme</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="reason-icon">🔍 <strong>Recherche d'articles</strong></span>
+                        <div>
+                            <p>Nous vous aidons à trouver la perle rare</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="reason-icon">🛡️ <strong>Support technique</strong></span>
+                        <div>
+                            
+                            <p>Assistance pour vos transactions</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="reason-icon">💡 <strong>Suggestions</strong></span>
+                        <div>
+                            
+                            <p>Vos idées pour améliorer Merch Exchange</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="contact-form-section">
+            <div class="form-container">
+                <div class="form-header">
+                    <br>
+                    <h2>📝 Envoyez-nous un message</h2>
+                    <p>Nous sommes impatients de vous aider !</p>
+                    <br>
+                </div>
+
+                <form action="" method="post" novalidate class="contact-form">
+                    {% csrf_token %}
+                    
+                    <div class="form-group">
+                        <label for="{{ form.name.id_for_label }}">
+                            👤 {{ form.name.label }}
+                        </label>
+                        {{ form.name }}
+                        <div class="form-help">Optionnel - ou restez anonyme</div>
+                        <br>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.email.id_for_label }}">
+                            📧 {{ form.email.label }} *
+                        </label>
+                        {{ form.email }}
+                        <div class="form-help">Pour vous répondre rapidement</div>
+                        <br>
+                        {% if form.email.errors %}
+                            <div class="form-errors">
+                                {% for error in form.email.errors %}
+                                    <span class="error-message">⚠️ {{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.message.id_for_label }}">
+                            💬 {{ form.message.label }} *
+                        </label>
+                        {{ form.message }}
+                        <div class="form-help">Décrivez votre demande en détail</div>
+                        <br>
+                        {% if form.message.errors %}
+                            <div class="form-errors">
+                                {% for error in form.message.errors %}
+                                    <span class="error-message">⚠️ {{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-submit">
+                        <input type="submit" value="🚀 Envoyer le message" class="submit-btn">
+                        <p class="submit-info">
+                            <br>
+                            <span class="privacy-note">
+                                🔒 Vos données sont protégées et ne seront utilisées que pour vous répondre
+                            </span>
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="contact-bottom">
+        <div class="quick-links">
+            <h3>🔗 Liens rapides</h3>
+            <br>
+            <div class="quick-links-grid">
+                <a href="{% url 'band-list' %}" class="quick-link">
+                    <span class="quick-link-icon">🎵</span>
+                    <span>Parcourir les groupes</span>
+                </a>
+                <a href="{% url 'lists' %}" class="quick-link">
+                    <span class="quick-link-icon">🛍️</span>
+                    <span>Voir les annonces</span>
+                </a>
+                <a href="{% url 'band-create' %}" class="quick-link">
+                    <span class="quick-link-icon">➕</span>
+                    <span>Ajouter un groupe</span>
+                </a>
+                <a href="{% url 'about' %}" class="quick-link">
+                    <span class="quick-link-icon">ℹ️</span>
+                    <span>En savoir plus</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

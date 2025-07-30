@@ -1,19 +1,84 @@
 {% extends 'listings/base.html' %}
-
+{% block title %}{{ band.name }} - Merch Exchange{% endblock %}
 {% block content %}
 
-<h2>{{ band.name }}</h2>
+<div class="band-detail-container">
+    <div class="band-header">
+        <div class="band-title-section">
+            <h1>🎵 {{ band.name }}</h1>
+            <span class="band-genre-badge">{{ band.get_genre_display }}</span>
+        </div>
+        <div class="band-status-info">
+            <div class="status-item">
+                <span class="status-label">Statut:</span>
+                <span class="status-value {% if band.active %}active{% else %}inactive{% endif %}">
+                    {% if band.active %}🟢 Actif{% else %}🔴 Inactif{% endif %}
+                </span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">Année de formation:</span>
+                <span class="status-value">📅 {{ band.year_formed }}</span>
+            </div>
+        </div>
+    </div>
 
-<ul>
-    <li>Genre : {{ band.get_genre_display }}</li>
-    <li>Année de formation : {{ band.year_formed }}</li>
-    <li>Actif : {{ band.active|yesno }}</li>
-    {% if band.official_homepage %}
-    <li><a href="{{ band.official_homepage }}">{{ band.official_homepage }}</a></li>
-    {% endif %}
-</ul>
-<p>{{ band.biography }}</p>
-<a href="{% url 'band-update' band.id %}">Modifier ce groupe</a>
-<a href="{% url 'band-delete' band.id %}">Supprimer ce groupe</a>
-<a href="{% url 'band-list' %}">Retourner à la liste des groupes</a>
+    <div class="band-content">
+        <div class="band-main-info">
+            <div class="info-card">
+                <h3>📖 Biographie</h3>
+                <p class="biography-text">{{ band.biography }}</p>
+            </div>
+
+            {% if band.official_homepage %}
+            <div class="info-card">
+                <h3>🌐 Site officiel</h3>
+                <a href="{{ band.official_homepage }}" target="_blank" class="official-link">
+                    🔗 {{ band.official_homepage }}
+                </a>
+            </div>
+            {% endif %}
+
+            <div class="info-card">
+                <h3>🛍️ Informations produit</h3>
+                <div class="product-info-grid">
+                    <div class="product-info-item">
+                        <span class="info-label">Type d'article:</span>
+                        <span class="info-value">{{ band.get_type_display }}</span>
+                    </div>
+                    <div class="product-info-item">
+                        <span class="info-label">Année:</span>
+                        <span class="info-value">{{ band.year|default:"Non spécifiée" }}</span>
+                    </div>
+                    <div class="product-info-item">
+                        <span class="info-label">Statut vente:</span>
+                        <span class="info-value {% if band.sold %}sold{% else %}available{% endif %}">
+                            {% if band.sold %}❌ Vendu{% else %}✅ Disponible{% endif %}
+                        </span>
+                    </div>
+                </div>
+                
+                {% if band.description %}
+                <div class="product-description">
+                    <h4>Description détaillée:</h4>
+                    <p>{{ band.description }}</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="band-actions">
+        <div class="action-buttons">
+            <a href="{% url 'band-update' band.id %}" class="btn-edit">
+                ✏️ Modifier ce groupe
+            </a>
+            <a href="{% url 'band-delete' band.id %}" class="btn-delete">
+                🗑️ Supprimer ce groupe
+            </a>
+            <a href="{% url 'band-list' %}" class="btn-back">
+                ⬅️ Retour à la liste
+            </a>
+        </div>
+    </div>
+</div>
 {% endblock %}

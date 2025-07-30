@@ -1,12 +1,47 @@
 {% extends 'listings/base.html' %}
+{% block title %}Groupes - Merch Exchange{% endblock %}
 {% block content %}
-<h1>Groupes</h1>
-<ul>
+
+<div class="hero-section">
+    <h1>🎸 Découvrez nos Groupes</h1>
+    <p class="hero-subtitle">Explorez les artistes et leurs articles de collection</p>
+</div>
+
+<div class="add-band-section">
+    <div class="action-links">
+        <a href="{% url 'band-create' %}" class="btn-primary">➕ Ajouter un nouveau groupe</a>
+    </div>
+</div>
+
+<div class="bands-grid">
     {% for bands in band %}
-    <li>
-        <a href="{% url 'band-detail' bands.id %}">{{ bands.name }}</a>
-        - <a href="{% url 'band-update' bands.id %}">[modifier]</a>
-    </li>
+    <div class="band-card">
+        <div class="band-card-header">
+            <h3>{{ bands.name }}</h3>
+            <span class="band-genre">{{ bands.get_genre_display }}</span>
+        </div>
+        <div class="band-card-body">
+            <div class="band-info">
+                <span class="band-year">📅 {{ bands.year_formed }}</span>
+                <span class="band-status {% if bands.active %}active{% else %}inactive{% endif %}">
+                    {% if bands.active %}🟢 Actif{% else %}🔴 Inactif{% endif %}
+                </span>
+            </div>
+            <p class="band-bio">{{ bands.biography|truncatewords:15 }}</p>
+        </div>
+        <div class="band-card-footer">
+            <div class="card-actions">
+                <a href="{% url 'band-detail' bands.id %}" class="btn-view">👁️ Voir détails</a>
+                <a href="{% url 'band-update' bands.id %}" class="btn-edit">✏️ Modifier</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="empty-state">
+        <h3>Aucun groupe trouvé</h3>
+        <p>Commencez par ajouter votre premier groupe !</p>
+        <a href="{% url 'band-create' %}" class="btn-primary">Ajouter un groupe</a>
+    </div>
     {% endfor %}
-</ul>
+</div>
 {% endblock %}

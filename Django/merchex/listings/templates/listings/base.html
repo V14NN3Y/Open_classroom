@@ -1,13 +1,34 @@
 {% load static %}
-<html>
+<!DOCTYPE html>
+<html lang="fr">
     <head>
-        <title>Merchex</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}Merch Exchange - Marketplace des articles de musique{% endblock %}</title>
         <link rel="stylesheet" href="{% static 'listings/styles.css' %}" />
     </head>
     <body>
         <nav>
-            <a href="{% url 'band-list' %}">Groupes</a>
+            <div class="nav-container">
+                <a href="{% url 'band-list' %}" class="nav-brand">🎵 Merch Exchange</a>
+                <div class="nav-links">
+                    <a href="{% url 'band-list' %}">Groupes</a>
+                    <a href="{% url 'listyys' %}">Annonces</a>
+                    <a href="{% url 'band-create' %}">Ajouter un groupe</a>
+                    <a href="{% url 'contact' %}">Contact</a>
+                    <a href="{% url 'about' %}">À propos</a>
+                </div>
+            </div>
         </nav>
-        {% block content %}{% endblock %}
+        
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+        
+        <footer>
+            <div class="footer-content">
+                <p>&copy; 2025 Merch Exchange - Votre marketplace d'articles de musique</p>
+            </div>
+        </footer>
     </body>
 </html>

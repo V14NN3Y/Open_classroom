@@ -1,9 +1,144 @@
 {% extends 'listings/base.html' %}
+{% block title %}Supprimer {{ band.name }} - Merch Exchange{% endblock %}
 {% block content %}
-<h1>Supprimer le groupe</h1>
-<p>Etes-vous sûr de vouloir supprimer le groupe : {{ band.name }} ?</p>
-<form action="" method="post">
-    {% csrf_token %}
-    <input type="submit" value="Supprimer">
-</form>
+
+<div class="delete-container">
+    <div class="delete-header">
+        <div class="warning-icon">⚠️</div>
+        <h1>Suppression du groupe</h1>
+        <p class="delete-subtitle">Cette action est irréversible</p>
+    </div>
+
+    <div class="delete-content">
+        <div class="band-preview">
+            <div class="preview-header">
+                <h2>🎵 {{ band.name }}</h2>
+                <span class="band-genre-preview">{{ band.get_genre_display }}</span>
+            </div>
+            
+            <div class="preview-details">
+                <div class="detail-item">
+                    <span class="detail-label">📅 Année de formation:</span>
+                    <span class="detail-value">{{ band.year_formed }}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">🎭 Statut:</span>
+                    <span class="detail-value {% if band.active %}active{% else %}inactive{% endif %}">
+                        {% if band.active %}🟢 Actif{% else %}🔴 Inactif{% endif %}
+                    </span>
+                </div>
+                {% if band.type %}
+                <div class="detail-item">
+                    <span class="detail-label">🛍️ Type d'article:</span>
+                    <span class="detail-value">{{ band.get_type_display }}</span>
+                </div>
+                {% endif %}
+            </div>
+
+            {% if band.biography %}
+            <div class="preview-biography">
+                <h4>📖 Biographie</h4>
+                <p>{{ band.biography|truncatewords:30 }}</p>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="delete-warning">
+            <div class="warning-content">
+                <div class="warning-icon-large">🚨</div>
+                <h3>Attention !</h3>
+                <div class="warning-list">
+                    <div class="warning-item">
+                        <span class="warning-bullet">❌</span>
+                        <span>Le groupe <strong>"{{ band.name }}"</strong> sera définitivement supprimé</span>
+                    </div>
+                    <div class="warning-item">
+                        <span class="warning-bullet">📊</span>
+                        <span>Toutes les données associées seront perdues</span>
+                    </div>
+                    <div class="warning-item">
+                        <span class="warning-bullet">🔗</span>
+                        <span>Les liens avec les annonces existantes seront cassés</span>
+                    </div>
+                    <div class="warning-item">
+                        <span class="warning-bullet">⏳</span>
+                        <span>Cette action ne peut pas être annulée</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="confirmation-section">
+            <h3>🤔 Êtes-vous absolument certain ?</h3>
+            <p class="confirmation-text">
+                Tapez le nom du groupe <strong>"{{ band.name }}"</strong> pour confirmer la suppression :
+            </p>
+            
+            <form action="" method="post" class="delete-form">
+                {% csrf_token %}
+                
+                <div class="confirmation-input">
+                    <input 
+                        type="text" 
+                        id="confirmation" 
+                        name="confirmation" 
+                        placeholder="Tapez &quot;{{ band.name }}&quot; ici"
+                        class="confirmation-field"
+                        required
+                    >
+                    <div class="input-help">
+                        ⚠️ La suppression ne sera possible qu'après avoir tapé le nom exact
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button type="submit" class="btn-delete-confirm" disabled id="deleteBtn">
+                        🗑️ Oui, supprimer définitivement
+                    </button>
+                    <a href="{% url 'band-detail' band.id %}" class="btn-cancel">
+                        ↩️ Annuler et revenir
+                    </a>
+                </div>
+            </form>
+        </div>
+
+        <div class="alternative-actions">
+            <h4>🔄 Alternatives à la suppression</h4>
+            <div class="alternatives-grid">
+                <a href="{% url 'band-update' band.id %}" class="alternative-card">
+                    <div class="alt-icon">✏️</div>
+                    <div class="alt-content">
+                        <h5>Modifier les informations</h5>
+                        <p>Mettez à jour les détails du groupe</p>
+                    </div>
+                </a>
+                <div class="alternative-card inactive-option">
+                    <div class="alt-icon">👁️‍🗨️</div>
+                    <div class="alt-content">
+                        <h5>Masquer temporairement</h5>
+                        <p>Option non disponible actuellement</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const confirmationInput = document.getElementById('confirmation');
+    const deleteBtn = document.getElementById('deleteBtn');
+    const expectedName = "{{ band.name }}";
+    
+    confirmationInput.addEventListener('input', function() {
+        if (this.value === expectedName) {
+            deleteBtn.disabled = false;
+            deleteBtn.classList.add('enabled');
+        } else {
+            deleteBtn.disabled = true;
+            deleteBtn.classList.remove('enabled');
+        }
+    });
+});
+</script>
 {% endblock %}

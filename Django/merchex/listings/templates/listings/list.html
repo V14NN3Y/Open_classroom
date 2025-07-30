@@ -1,0 +1,10 @@
+{% extends 'listings/base.html' %}
+{% block content %}
+<h1>Annonces pour les articles</h1>
+<p>
+    Voici les annonces recensées :
+    {% for ann in list %}
+    <ul>{{ ann.title }}</ul>
+    {% endfor %}
+</p>
+{% endblock %}
